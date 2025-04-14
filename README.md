@@ -1,86 +1,83 @@
-# Group Project Repository Submission Template 
+# Individual Assignment - ML for Robotic Fabrication  
 ## Index
   - [Overview](#overview) 
   - [Getting Started](#getting-started)
-  - [Demo](#demo)
+  - [Results](#results)
   - [Authors](#authors)
   - [References](#references)
   - [Credits](#credits)
-<!--  Other options to write Readme
-  - [Deployment](#deployment)
-  - [Used or Referenced Projects](Used-or-Referenced-Projects)
--->
-## MRAC0X(XX/XX): ClassName XX - Student Project Name
-<!--Write a few sentences of academic context and project description -->  
-This project aims to demonstrate a fantastic application using fascinating technologies, developed within the scope of the best class ever.   
+
+## MRAC05(24/25): ML for Robotic Fabrication - Hypotenuse Predictor
+
+This project explores the application of machine learning for a basic geometric task: predicting the hypotenuse of a right-angle triangle given the lengths of the two legs.  
+The goal is to simulate a regression pipeline for robotic computation scenarios using synthetic data and scikit-learn.
+
 ## Overview
-<!-- Write Overview about this project -->
-The project's justification, state-of-the-art, and inspiration live in this section.
+
+Using randomly generated values for triangle legs `a` and `b`, the model learns to predict the hypotenuse `c` using a Linear Regression model.  
+The true values for `c` are calculated using the Pythagorean theorem:
+
+```
+c = sqrt(a² + b²)
+```
+
+This exercise reinforces the core ML workflow: data generation, training, evaluation, and documentation.
 
 ## Getting Started
 
 ### Prerequisites
-Ensure that you fulfill the following criteria to replicate this project.
-* Ubuntu LTS 20.04 <
-* Python 3.7 <
-* Docker
 
-### Depencies
-The project's dependencies include:
-* Numpy - for matrix manipulation
-* OpenCV - for image processing
-* ROS - for interfacing with the robot
+Ensure the following are installed:
+* Python 3.10+
+* pip
 
-The dependencies are satisfied using the following sources:
+### Dependencies
+
+Install all required Python packages with:
 
 ```bash
-# ROS Noetic and core dependencies
-wget -c https://raw.githubusercontent.com/qboticslabs/ros_install_noetic/master/ros_install_noetic.sh && chmod +x ./ros_install_noetic.sh && ./ros_install_noetic.sh
-# install numpy
-pip3 install numpy setuptools
+pip install numpy pandas matplotlib scikit-learn
 ```
 
-### Installing
-A step by step series of examples that tell you how to get a development 
-env running
+### Installing and Running
+
+1. Generate the dataset:
 
 ```bash
-cd ~/catkin_ws/src
-git submodule init
-git submodule update
-cd ../
-rosdep install --from-paths src --ignore-src -r -y
-catkin_make -DCMAKE_BUILD_TYPE=Release
-source ./devel/setup.bash
+python3 src/generate_data.py
 ```
-### Deployment
-Add additional notes about how to deploy this on a live system
-* Run the application with `.docker/run_user_nvidia.sh`
-* Ensure that you are running the indicate command `sudo chmod -R <user_name> \dev_ws` for permitions
-* Run `terminator`
 
-## Demo
-Here is what the project can do and what are the results.
+2. Train and evaluate the model:
 
-The project can be launched with the following command:
-* `roslaunch package_name package_name.launch`
+```bash
+python3 src/train_model.py
+```
 
-This opens up `rviz` and shows the robot moving around
+This will output metrics and save a results plot to `data/pred_vs_real.png`.
+
+## Results
+
+The dataset is saved at:  
+`data/triangles.csv`
+
+### Evaluation
+
+- **Model:** Linear Regression  
+- **Mean Squared Error (MSE):** 35.4490  
+- **R² Score:** 0.9574
+
+### Prediction vs True Value Plot
+
+![Prediction vs True](data/pred_vs_real.png)
 
 ## Authors
-  - [Name](insert linkedin/webpage link) - role
+  - [Charlie Larraín](https://github.com/Clarrainl/) – Student, MRAC 2024/25
 
 ## References
-- [K. Albee et al., “A robust observation, planning, and control pipeline for autonomous rendezvous with tumbling targets,” Frontiers in Robotics and AI, vol. 8, p. 234, 2021, doi: 10.3389/frobt.2021.641338.](https://www.frontiersin.org/articles/10.3389/frobt.2021.641338/full)
+- [Scikit-learn Documentation](https://scikit-learn.org/stable/)
+- [Pythagorean Theorem - Wikipedia](https://en.wikipedia.org/wiki/Pythagorean_theorem)
 
 ## Credits
-  - [Name](insert linkedin/webpage link) - role
-
-<!--  DO NOT REMOVE
--->
-#### Acknowledgements
-
-- Creation of GitHub template: [Marita Georganta](https://www.linkedin.com/in/marita-georganta/) - Robotic Sensing Expert
-- Creation of MRAC-IAAC GitHub Structure: [Huanyu Li](https://www.linkedin.com/in/huanyu-li-457590268/) - Robotic Researcher
-
+  - Adapted from MRAC GitHub Template by IAAC  
+  - [Marita Georganta](https://www.linkedin.com/in/marita-georganta/) - Robotic Sensing Expert  
 
